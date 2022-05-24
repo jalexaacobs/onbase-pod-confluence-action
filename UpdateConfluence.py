@@ -35,7 +35,7 @@ def getPageBodyContent(title):
 def extractReadmeInputs(readmeFileText, variablesInfo):
 
     # lets find the text between the Inputs header and the Outputs header
-    headersMatch = re.search(r"(## Inputs((\s*|.*)*)## Outputs)", readmeFileText)
+    headersMatch = re.search(r"(## Inputs((\s|.)*?)## Outputs)", readmeFileText)
     inputsText = headersMatch.groups()[1]
 
     # lets get the headers now
