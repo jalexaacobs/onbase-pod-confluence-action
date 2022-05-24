@@ -3,6 +3,3 @@ description: 'Updates the onbase pod confluence page to reflect current variable
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env: 
-    ATLASSIAN_TOKEN: ${{ secrets.ATLASSIAN_TOKEN }}
-    CONFLUENCE_PAGE: "TEST OnBase Pod Terraform Inputs" # will change to actual page when production ready:
