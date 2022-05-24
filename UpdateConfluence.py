@@ -119,22 +119,24 @@ def extractVariableInfo(variablesFileText, readmeFileText):
     variablesInfo = {}
 
     # nasty regex, essentially matches each variable {} block in the file
-    matches = re.findall(r"((variable \")(.*)\{\n(.*\n)*?\})", variablesFileText)
+    matches = re.split(r"(variable\s*\")", variablesFileText)
+    matches.pop(0) # we dont care about the first one
+    matches = matches[1::2] # we only want every other
+
     for match in matches:
         varInfo = {}
-        variableBlock = match[0]
 
         # first get the names
-        name = re.search(r"variable \"(\w*)\"", variableBlock).group(1)
+        name = re.search(r"(.*?)\s*\"", match).groups()[0]
 
         # then check for validation and sensitve attributes from the variables.tf file passed in
 
         # validation
-        valMatch = re.search(r"validation\s*\{\s*", variableBlock)
+        valMatch = re.search(r"validation\s*\{\s*", match)
         if valMatch:
             # there is a validation block, lets grab the condition/error message
             # it will contain a condition and a error_message attribute, just grab both in whatever order
-            condOrErrorMatch = re.search(r"(condition|error_message)\s*=\s*(.*)\s*(condition|error_message)\s*=\s*(.*)", variableBlock)
+            condOrErrorMatch = re.search(r"(condition|error_message)\s*=\s*(.*)\s*(condition|error_message)\s*=\s*(.*)", match)
             conditionOrError = condOrErrorMatch.groups()[0]
             conditionOrErrorValue = condOrErrorMatch.groups()[1]
             conditionOrError2 = condOrErrorMatch.groups()[2]
@@ -147,7 +149,7 @@ def extractVariableInfo(variablesFileText, readmeFileText):
             varInfo["Validation"] = None
 
         # sensitive
-        sensMatch = re.search(r"sensitive(\s*)=(\s*)(true)", variableBlock)
+        sensMatch = re.search(r"sensitive(\s*)=(\s*)(true)", match)
         if sensMatch:
             varInfo["Sensitive"] = sensMatch.groups()[2]
         else:
