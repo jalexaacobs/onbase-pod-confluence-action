@@ -90,8 +90,8 @@ def grabVariablesFile():
     # with open('./target_repository/variables.tf') as f:
     #     fileText = f.read()
     # return fileText
-    print(sys.argv[3])
-    return sys.argv[3]
+    print(os.environ['INPUT_VARIABLES'])
+    return os.environ['INPUT_VARIABLES']
 
 # Retrieves the README file and returns the text
 def grabReadmeFile():
@@ -99,8 +99,8 @@ def grabReadmeFile():
     # with open('./target_repository/README.md') as f:
     #     fileText = f.read()
     # return fileText
-    print(sys.argv[3])
-    return sys.argv[3]
+    print(os.environ['INPUT_README'])
+    return os.environ['INPUT_README']
 
 # extracts useful info about all the variables in passed in variables file
 # The following additional arguments (that we care about) are allowed on each var:
