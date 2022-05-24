@@ -2,6 +2,7 @@ import os
 import json
 import requests
 import re
+import sys
 
 # CONSTANTS
 CONFLUENCE_TOKEN = os.environ['ATLASSIAN_TOKEN']
@@ -79,22 +80,27 @@ def updatePage(pageID, contentBody):
         }
     })
 
+    print(payload)
     response = requests.request("PUT", CONF_URL + pageID, headers=headers, data=payload)
     print(response.status_code)
 
 # Retrieves the Variables.tf file and returns the text
 def grabVariablesFile():
-    fileText = ""
-    with open('./target_repository/variables.tf') as f:
-        fileText = f.read()
-    return fileText
+    # fileText = ""
+    # with open('./target_repository/variables.tf') as f:
+    #     fileText = f.read()
+    # return fileText
+    print(sys.argv[3])
+    return sys.argv[3]
 
 # Retrieves the README file and returns the text
 def grabReadmeFile():
-    fileText = ""
-    with open('./target_repository/README.md') as f:
-        fileText = f.read()
-    return fileText
+    # fileText = ""
+    # with open('./target_repository/README.md') as f:
+    #     fileText = f.read()
+    # return fileText
+    print(sys.argv[3])
+    return sys.argv[3]
 
 # extracts useful info about all the variables in passed in variables file
 # The following additional arguments (that we care about) are allowed on each var:
