@@ -1,5 +1,15 @@
 name: 'Update Confluence'
 description: 'Updates the onbase pod confluence page to reflect current variable inputs'
+inputs:
+  variables:  
+    description: 'Variables.tf file'
+    required: true
+  readme:  
+    description: 'README file'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.variables }}
+    - ${{ inputs.readme }}
