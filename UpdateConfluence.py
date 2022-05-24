@@ -34,6 +34,11 @@ def getPageBodyContent(title):
 # takes in a markdown'd README file and extracts the input var contents
 def extractReadmeInputs(readmeFileText, variablesInfo):
 
+    print(variablesInfo)
+
+
+
+
     # lets find the text between the Inputs header and the Outputs header
     headersMatch = re.search(r"(## Inputs((\s|.)*?)## Outputs)", readmeFileText)
     inputsText = headersMatch.groups()[1]
@@ -50,7 +55,7 @@ def extractReadmeInputs(readmeFileText, variablesInfo):
         # lets split up based on the columns, name has to be handled differently as the first one
         varValues = re.split(r"\|", var)
         name = re.split(r"\]\(#",varValues[0])[0].replace('\\','') # getting it to the correct format
-
+        print(name)
         # add the other attribute values to the json object
         for x in range(1,len(headers)):
             variablesInfo[name][headers[x]] = varValues[x].strip()
