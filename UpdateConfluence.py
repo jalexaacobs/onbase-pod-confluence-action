@@ -180,7 +180,7 @@ def formatTableForConfluence(variables, confluenceValues):
 
 def formatConfluence(variables, confluenceValues):
     # start the table
-    contentString = "<table data-layout=\"full-width\" ac:local-id=\"91cfb662-2b44-4047-a7bb-dcfa0139de88\"><tbody><tr><th><p><span style=\"color: rgb(0,0,0);\">variable</span></p></th><th><p><span style=\"color: rgb(0,0,0);\">required</span></p></th><th><p><span style=\"color: rgb(0,0,0);\">type</span></p></th><th><p>default</p></th><th><p><span style=\"color: rgb(0,0,0);\">validation</span></p></th><th><p><span style=\"color: rgb(0,0,0);\">secret</span></p></th><th><p>description</p></th><th><p>CPEOB Additional Notes</p></th><th><p>Control Plane Notes</p></th><th><p>CP Display</p></th></tr>"
+    contentString = "<table data-layout=\"full-width\" ac:local-id=\"91cfb662-2b44-4047-a7bb-dcfa0139de88\"><tbody><tr><th><p><span style=\"color: rgb(0,0,0);\">variable</span></p></th><th><p><span style=\"color: rgb(0,0,0);\">required</span></p></th><th><p><span style=\"color: rgb(0,0,0);\">type</span></p></th><th><p>default</p></th><th><p><span style=\"color: rgb(0,0,0);\">validation</span></p></th><th><p><span style=\"color: rgb(0,0,0);\">secret</span></p></th><th><p>description</p></th><th><p><b>CPEOB Additional Notes</b></p></th><th><p><b>Control Plane Notes</b></p></th><th><p><b>CP Display</b></p></th></tr>"
 
     tableContentString = formatTableForConfluence(variables, confluenceValues)
     contentString = contentString + tableContentString
