@@ -2,18 +2,12 @@ import os
 import json
 import requests
 import re
-import sys
 
 # CONSTANTS
 CONFLUENCE_TOKEN = os.environ['ATLASSIAN_TOKEN']
 CONFLUENCE_PAGE = os.environ['CONFLUENCE_PAGE']
 CONTENT_TYPE = "application/vnd.api+json"
 CONF_URL = "https://hyland.atlassian.net/wiki/rest/api/content/"
-
-# helper method that takes a relative filepath and dumps the passed in object to a file
-def dumpToFile(fileName, data):
-    with open(fileName, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
 
 # grabs the content body for the provided page name
 def getPageBodyContent(title):
@@ -34,11 +28,6 @@ def getPageBodyContent(title):
 # takes in a markdown'd README file and extracts the input var contents
 def extractReadmeInputs(readmeFileText, variablesInfo):
 
-    print(variablesInfo)
-
-
-
-
     # lets find the text between the Inputs header and the Outputs header
     headersMatch = re.search(r"(## Inputs((\s|.)*?)## Outputs)", readmeFileText)
     inputsText = headersMatch.groups()[1]
@@ -55,7 +44,6 @@ def extractReadmeInputs(readmeFileText, variablesInfo):
         # lets split up based on the columns, name has to be handled differently as the first one
         varValues = re.split(r"\|", var)
         name = re.split(r"\]\(#",varValues[0])[0].replace('\\','') # getting it to the correct format
-        print(name)
         # add the other attribute values to the json object
         for x in range(1,len(headers)):
             variablesInfo[name][headers[x]] = varValues[x].strip()
@@ -85,26 +73,18 @@ def updatePage(pageID, contentBody):
         }
     })
 
-    print(payload)
     response = requests.request("PUT", CONF_URL + pageID, headers=headers, data=payload)
     print(response.status_code)
+    if response.status_code != 200:
+        print('Did not get 200, here is the payload: ')
+        print(payload)
 
 # Retrieves the Variables.tf file and returns the text
 def grabVariablesFile():
-    # fileText = ""
-    # with open('./target_repository/variables.tf') as f:
-    #     fileText = f.read()
-    # return fileText
-    print(os.environ['INPUT_VARIABLES'])
     return os.environ['INPUT_VARIABLES']
 
 # Retrieves the README file and returns the text
 def grabReadmeFile():
-    # fileText = ""
-    # with open('./target_repository/README.md') as f:
-    #     fileText = f.read()
-    # return fileText
-    print(os.environ['INPUT_README'])
     return os.environ['INPUT_README']
 
 # extracts useful info about all the variables in passed in variables file
