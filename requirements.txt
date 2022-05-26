@@ -1,2 +1,2 @@
 # python package dependencies
-requests
+requests == 2.27.*
