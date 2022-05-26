@@ -48,6 +48,7 @@ def extractReadmeInputs(readmeFileText, variablesInfo):
         for x in range(1,len(headers)):
             variablesInfo[name][headers[x]] = varValues[x].strip()
 
+# updates a page with the provided content body
 def updatePage(pageID, contentBody):
     headers = {
         'Authorization': 'Basic ' + CONFLUENCE_TOKEN,
@@ -60,7 +61,7 @@ def updatePage(pageID, contentBody):
     print(currentVersion)
     payload = json.dumps({
         "type": "page",
-        "title": "TEST OnBase Pod Terraform Inputs",
+        "title": CONFLUENCE_PAGE,
         "version": {
         "number": currentVersion + 1
         },
